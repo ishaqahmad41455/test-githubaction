@@ -14,12 +14,13 @@ jobs:
         env:
           HOME: ${{ runner.tempDir }}/.ssh  # Set HOME to a temporary directory
         run: |
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ecdsa
-          echo "${{ secrets.SSH_PUBLIC_KEY }}" > $HOME/.ssh/id_ecdsa
-          chmod 600 $HOME/.ssh/id_ecdsa
-          chmod 644 $HOME/.ssh/id_ecdsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> $HOME/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ecdsa
+          echo "${{ secrets.SSH_PUBLIC_KEY }}" > ~/.ssh/id_ecdsa.pub
+          chmod 700 ~/.ssh
+          chmod 600 ~/.ssh/id_ecdsa
+          chmod 644 ~/.ssh/id_ecdsa.pub
+          ssh-keyscan -p 21098 -H 199.188.201.205 >> ~/.ssh/known_hosts || { echo "ssh-keyscan failed"; exit 1; }
 
       - name: Deploy
         run: |
