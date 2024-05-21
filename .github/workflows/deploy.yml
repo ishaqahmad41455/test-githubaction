@@ -12,14 +12,12 @@ jobs:
 
       - name: Setup SSH
         run: |
-          set -eux
-          echo "HOME directory: $HOME"
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
-          echo "${{ secrets.SSH_PUBLIC_KEY }}" > $HOME/.ssh/id_rsa.pub
-          chmod 600 $HOME/.ssh/id_rsa
-          chmod 644 $HOME/.ssh/id_rsa.pub
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> $HOME/.ssh/known_host
+          mkdir -p $HOME/padijf/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/padijf/.ssh/id_rsa
+          echo "${{ secrets.SSH_PUBLIC_KEY }}" > $HOME/padijf/.ssh/id_rsa.pub
+          chmod 600 $HOME/padijf/.ssh/id_rsa
+          chmod 644 $HOME/padijf/.ssh/id_rsa.pub
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> $HOME/padijf/.ssh/known_hosts
 
       - name: Deploy
         run: |
