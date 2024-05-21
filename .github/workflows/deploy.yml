@@ -15,10 +15,10 @@ jobs:
           HOME: ${{ runner.tempDir }}/.ssh  # Set HOME to a temporary directory
         run: |
           mkdir -p $HOME/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
-          echo "${{ secrets.SSH_PUBLIC_KEY }}" > $HOME/.ssh/id_rsa.pub
-          chmod 600 $HOME/.ssh/id_rsa
-          chmod 644 $HOME/.ssh/id_rsa.pub
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ecdsa
+          echo "${{ secrets.SSH_PUBLIC_KEY }}" > $HOME/.ssh/id_ecdsa
+          chmod 600 $HOME/.ssh/id_ecdsa
+          chmod 644 $HOME/.ssh/id_ecdsa
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> $HOME/.ssh/known_hosts
 
       - name: Deploy
